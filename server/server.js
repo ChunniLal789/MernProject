@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const router = require('./router/auth-router');
+const connectDB = require('./utils/db')
 
 app.use(express.json());
 
@@ -16,6 +18,8 @@ app.get('/register', (req, res) => {
     res.status(200).send("Hello this is registration page");
 })
 
-app.listen(PORT, () => {
-    console.log(`server connected to port ${PORT}`);
+connectDB().then( () => {
+    app.listen(PORT, () => {
+        console.log(`server connected to port ${PORT}`);
+    })
 })
