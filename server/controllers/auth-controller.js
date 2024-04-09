@@ -19,7 +19,7 @@ const register = async(req, res) => {
         }
 
         const newUser = await User.create({username, email, phone, password});
-        res.status(200).json({msg : newUser});
+        res.status(200).json({msg : newUser, token : await newUser.generateToken(), userID : newUser._id.toString()});
     } catch (error) {
         console.log(error);
     }
