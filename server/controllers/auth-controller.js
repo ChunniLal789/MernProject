@@ -1,5 +1,7 @@
 const express = require('express');
 const User = require('../models/user-model');
+const bcrypt = require('bcrypt');
+const { use } = require('../router/auth-router');
 
 const home = async(req, res) => {
     try {
@@ -19,10 +21,34 @@ const register = async(req, res) => {
         }
 
         const newUser = await User.create({username, email, phone, password});
-        res.status(200).json({msg : newUser, token : await newUser.generateToken(), userID : newUser._id.toString()});
+        res.status(200).json({msg : "Registration successful", token : await newUser.generateToken(), userID : newUser._id.toString()});
     } catch (error) {
         console.log(error);
     }
 }
 
-module.exports = {home, register}; 
+const login = async(req, res) => {
+    try {
+        const {email, password} = req.body;
+
+        const userExist = await User.findOne({email});
+        if(!userExist){
+            res.status(400).json({msg : "Invalid credentials"});
+        }
+
+        const user = await bcrypt.compare(password, userExist.password);
+        if(user){
+            res.status(200).json(
+            {   msg : "Login successful", 
+                token : await userExist.generateToken(),
+                userID : userExist._id.toString()
+            });
+        }else{
+            res.status(401).json({msg : "Invalid email or password"});
+        }
+    } catch (error) {
+        res.status(500).json({msg : "Login error"});
+    }
+}
+
+module.exports = {home, register, login}; 

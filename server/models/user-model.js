@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrpyt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
@@ -31,8 +31,8 @@ userSchema.pre('save', async function(){
         next();
     }
     try {
-        const saltRound = await bcrpyt.genSalt(10);
-        const hashPassword = await bcrpyt.hash(user.password, saltRound);
+        const saltRound = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(user.password, saltRound);
         user.password = hashPassword;
     } catch (error) {
         next(error);
