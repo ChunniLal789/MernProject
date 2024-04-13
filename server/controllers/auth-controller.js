@@ -1,7 +1,6 @@
 const express = require('express');
 const User = require('../models/user-model');
 const bcrypt = require('bcrypt');
-const { use } = require('../router/auth-router');
 
 const home = async(req, res) => {
     try {
@@ -53,4 +52,14 @@ const login = async(req, res) => {
     }
 }
 
-module.exports = {home, register, login}; 
+const user = async(req, res) => {
+    try {
+        const userData = req.user;
+        console.log(userData);
+        res.status(200).json({userData});
+    } catch (error) {
+        console.log(`Error from user route ${error}`);
+    }
+}
+
+module.exports = {home, register, login, user}; 
