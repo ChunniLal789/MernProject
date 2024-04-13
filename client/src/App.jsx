@@ -6,6 +6,8 @@ import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { Contact } from "./pages/Contact";
 import { Navbar } from "./components/Navbar";
+import { Logout } from "./pages/Logout";
+import { Error } from "./pages/Error";
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/service" element={<Service />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
     </>
