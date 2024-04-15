@@ -55,8 +55,8 @@ export const AuthProvider = ({children}) => {
     }
 
     useEffect(() => {
-        getServices(),
-        userAuthentication()
+        getServices();
+        userAuthentication();
     }, []);
 
     return (

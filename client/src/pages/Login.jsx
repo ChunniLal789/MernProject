@@ -32,19 +32,19 @@ export const Login = () => {
         },
         body: JSON.stringify(user),
       });
-      console.log(response);
+      const res_data = await response.json();
+      console.log("Res from server", res_data);
 
       if(response.ok){
-        alert("Login successful")
-        const res_data = await response.json();
+        alert("Login successful");
         storeTokeninLS(res_data.token);
         setUser({email : "", password : ""});
         navigate("/");
       }else{
-        alert("Invalid credentials");
+        alert(res_data.extradetails ? res_data.extradetails : res_data.message);
       }
     } catch (error) {
-      console.error("Login", error);
+      console.log("Login", error);
     }
   };
   return (
