@@ -11,24 +11,27 @@ export const AdminUpdate = () => {
   });
 
   const params = useParams();
-//   console.log("params single user: ", params.id);
+  //   console.log("params single user: ", params.id);
   const { authorizationToken } = useAuth();
 
   const getSingleUserData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/users/${params.id}`, {
-        method: "GET",
-        headers: {
-          Authorization: authorizationToken,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/admin/users/${params.id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: authorizationToken,
+          },
+        }
+      );
       const data = await response.json();
       console.log(`users single data:  ${data}`);
       setData(data);
 
-        if (response.ok) {
-          getAllUsersData();
-        }
+      if (response.ok) {
+        getAllUsersData();
+      }
     } catch (error) {
       console.log("admin update frontend error");
     }
@@ -37,7 +40,6 @@ export const AdminUpdate = () => {
   useEffect(() => {
     getSingleUserData();
   }, []);
-
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -48,11 +50,13 @@ export const AdminUpdate = () => {
     });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/users/update/${params.id}`,{
+      const response = await fetch(
+        `http://localhost:5000/api/admin/users/update/${params.id}`,
+        {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -70,7 +74,7 @@ export const AdminUpdate = () => {
     } catch (error) {
       console.log("update user submit error");
     }
-  }
+  };
 
   return (
     <section className="section-contact">
