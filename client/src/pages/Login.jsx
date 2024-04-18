@@ -37,7 +37,7 @@ export const Login = () => {
       // console.log("Res from server", res_data);
 
       if(response.ok){
-        toast.success("Login successful");
+        toast.success("Login successful 👍");
         storeTokeninLS(res_data.token);
 
         setUser({email : "", password : ""});

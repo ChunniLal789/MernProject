@@ -4,7 +4,7 @@ const authMiddleware = async(req, res, next) => {
     const token = req.header("Authorization");
 
     if(!token){
-        return res.status(200).json({msg : "Token not provided"});
+        return res.status(401).json({msg : "Token not provided"});
     }
 
     const jwtToken = token.replace("Bearer", "").trim();
